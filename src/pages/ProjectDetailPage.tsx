@@ -59,6 +59,11 @@ export default function ProjectDetailPage() {
     setTasks(prev => prev.filter(t => t.id !== taskId))
   }
 
+  const handleEditTask = async (taskId: string, title: string) => {
+    const updated = await updateTask(taskId, { title })
+    setTasks(prev => prev.map(t => t.id === taskId ? updated : t))
+  }
+
   const handleImport = async (titles: string[]) => {
     if (!id) return
     const rawText = titles.map(t => `- ${t}`).join('\n')
@@ -103,6 +108,7 @@ export default function ProjectDetailPage() {
               task={task}
               onStatusChange={handleStatusChange}
               onDelete={handleDeleteTask}
+              onEdit={handleEditTask}
             />
           ))}
           {done.map(task => (
@@ -111,6 +117,7 @@ export default function ProjectDetailPage() {
               task={task}
               onStatusChange={handleStatusChange}
               onDelete={handleDeleteTask}
+              onEdit={handleEditTask}
             />
           ))}
         </ul>

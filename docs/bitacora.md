@@ -4,6 +4,28 @@ Registro cronológico de sesiones. Entrada más reciente primero.
 
 ---
 
+## 2026-06-13 — Módulo Resources v1.0
+
+**Hecho:**
+- Entrevista de spec con el usuario: Resources = "cosa que quiero revisar después" (links, libros, notas). Auto-fetch de metadata acordado como feature central.
+- Spec documentado en `docs/specs/resources-spec.md` y aprobado antes de implementar.
+- Plan por fases creado y aprobado: Schema → Edge Function → Types → Skills → Componentes → Página → NavBar.
+- Migración `create_resources_table` aplicada en Supabase: tabla `resources` con RLS pública, índices GIN para tags, trigger `updated_at`.
+- Edge Function `fetch-url-metadata` desplegada (Deno, `verify_jwt: false`): YouTube via oEmbed, cualquier URL via fetch server-side + extracción de og:title/og:description/og:image.
+- Types: `src/types/resources.ts` — `ResourceType`, `ResourceStatus`, `Resource`, `NewResource`, `ResourcePatch`, `ResourceFilters`, `UrlMetadata`.
+- 4 skills: `getResources` (filtros: status/type/tag/search), `createResource`, `updateResource`, `deleteResource`.
+- 5 componentes nuevos: `TagInput` (chips de texto libre, Enter/coma añade, Backspace elimina), `ResourceCapture` (selector tipo + URL con auto-fetch onBlur + spinner + TagInput), `ResourceItem` (fila densa con expand inline, toggle leído, delete), `ResourceFilters` (tabs estado + búsqueda debounce 300ms + selects tipo/tag), `ResourceList` (contenedor puro).
+- Página `/resources` (`ResourcesPage.tsx`): captura siempre visible arriba, lista filtrable abajo, `useMemo` para derivar `allTags` del array local.
+- NavBar: 5to destino "Resources" + `overflow-x: auto; scrollbar-width: none` para móvil.
+- Verificado en browser (2026-06-13): auto-fetch YouTube funcionó (título "Rick Astley - Never Gonna Give You Up"), tags, filtros, marcar leído, eliminar.
+- Commit `8fae78d` pusheado a `master`.
+
+**Próximos pasos:**
+- Próximo módulo sin definir — candidatos: Archives ("A" de P.A.R.A.), mejoras de dark mode, vista de tabla para Resources v2.
+- Resources v1 sin: upload de PDFs, página de detalle `/resources/:id`, drag & drop, import masivo de bookmarks.
+
+---
+
 ## 2026-06-13 — Auditoría UX-TDAH + 5 fixes de presentación
 
 **Hecho:**

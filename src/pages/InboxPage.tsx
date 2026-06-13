@@ -3,6 +3,7 @@ import type { InboxItem, NewInboxItem } from '../types/inbox'
 import { captureIdea } from '../skills/captureIdea'
 import { getInboxItems } from '../skills/getInboxItems'
 import { deleteItem } from '../skills/deleteItem'
+import { updateItem } from '../skills/updateItem'
 import { processItem } from '../skills/processItem'
 import { createTask } from '../skills/createTask'
 import { createAreaLog } from '../skills/createAreaLog'
@@ -34,6 +35,11 @@ export default function InboxPage() {
   const handleDelete = async (id: string) => {
     await deleteItem(id)
     setItems(prev => prev.filter(item => item.id !== id))
+  }
+
+  const handleEdit = async (id: string, text: string) => {
+    const updated = await updateItem(id, { text })
+    setItems(prev => prev.map(item => item.id === id ? updated : item))
   }
 
   const handleProcess = async (dest: Destination) => {
@@ -73,6 +79,7 @@ export default function InboxPage() {
               item={item}
               onDelete={handleDelete}
               onProcess={setProcessing}
+              onEdit={handleEdit}
             />
           ))}
         </ul>

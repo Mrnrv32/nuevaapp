@@ -66,6 +66,40 @@
   color: var(--text);
 }
 
+.task-edit-btn {
+  background: none;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: var(--text);
+  padding: 0 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease-out, color 0.2s ease-out;
+  flex-shrink: 0;
+
+  .task-item:hover & {
+    opacity: 1;
+  }
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.task-title-edit {
+  flex: 1;
+  font-size: 15px;
+  color: var(--text-h);
+  font-family: inherit;
+  background: var(--bg);
+  border: 1.5px solid var(--accent);
+  border-radius: 6px;
+  padding: 2px 8px;
+  outline: none;
+  min-width: 0;
+  transition: border-color 0.2s ease-out;
+}
+
 .task-delete-btn {
   background: none;
   border: none;
@@ -75,6 +109,7 @@
   padding: 0 4px;
   opacity: 0;
   transition: opacity 0.2s ease-out, color 0.2s ease-out;
+  flex-shrink: 0;
 
   .task-item:hover & {
     opacity: 1;
@@ -83,4 +118,16 @@
   &:hover {
     color: #b45309;
   }
+}
+
+.task-delete-btn--confirm {
+  opacity: 1;
+  color: #b45309;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  background: rgba(180, 83, 9, 0.08);
+  border: 1px solid rgba(180, 83, 9, 0.3);
+  border-radius: 5px;
+  letter-spacing: 0.2px;
 }

@@ -14,3 +14,4 @@ export interface InboxItem {
 }
 
 export type NewInboxItem = Pick<InboxItem, 'text' | 'tags'>
+export type InboxPatch = Pick<InboxItem, 'text'>
