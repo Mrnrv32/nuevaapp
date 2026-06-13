@@ -1,6 +1,7 @@
 .capture {
   padding: 24px;
   border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
 }
 
 .capture-field {
@@ -15,23 +16,25 @@
   padding: 14px;
   font-size: 17px;
   font-family: var(--sans);
-  line-height: 1.5;
-  border: 2px solid var(--border);
-  border-radius: 10px;
+  line-height: 1.6;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
   background: var(--bg);
   color: var(--text-h);
   resize: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
   display: block;
+  box-shadow: var(--shadow-sm);
 
   &:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-sm), 0 0 0 3px var(--accent-bg);
   }
 
   &::placeholder {
     color: var(--text);
-    opacity: 0.6;
+    opacity: 0.55;
   }
 }
 
@@ -43,19 +46,19 @@
   justify-content: center;
   font-weight: 600;
   font-size: 18px;
-  color: #16a34a;
-  background: rgba(22, 163, 74, 0.08);
-  border-radius: 10px;
-  border: 2px solid rgba(22, 163, 74, 0.35);
+  color: #0d9488;
+  background: rgba(13, 148, 136, 0.07);
+  border-radius: 12px;
+  border: 1.5px solid rgba(13, 148, 136, 0.25);
   pointer-events: none;
   animation: savedFade 1.5s ease forwards;
 }
 
 @media (prefers-color-scheme: dark) {
   .capture-saved {
-    color: #4ade80;
-    background: rgba(74, 222, 128, 0.1);
-    border-color: rgba(74, 222, 128, 0.3);
+    color: #2dd4bf;
+    background: rgba(45, 212, 191, 0.1);
+    border-color: rgba(45, 212, 191, 0.25);
   }
 }
 
@@ -68,8 +71,14 @@
 
 .capture-error {
   font-size: 14px;
-  color: #ef4444;
+  color: #b45309;
   margin-bottom: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .capture-error {
+    color: #fbbf24;
+  }
 }
 
 .capture-actions {
@@ -93,7 +102,7 @@
   font-size: 14px;
   font-family: var(--sans);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s ease-out;
 
   &:hover:not(:disabled) {
     border-color: var(--accent-border);
@@ -102,7 +111,7 @@
 
   &.tag-chip--active {
     background: var(--accent-bg);
-    border-color: var(--accent);
+    border-color: var(--accent-border);
     color: var(--accent);
   }
 
@@ -117,12 +126,12 @@
   background: var(--accent);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 15px;
   font-family: var(--sans);
   font-weight: 500;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
   white-space: nowrap;
 
   &:disabled {
@@ -131,6 +140,7 @@
   }
 
   &:not(:disabled):hover {
-    opacity: 0.85;
+    opacity: 0.88;
+    transform: translateY(-1px);
   }
 }

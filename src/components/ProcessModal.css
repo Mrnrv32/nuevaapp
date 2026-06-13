@@ -1,13 +1,14 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
   padding: 20px;
-  animation: backdropIn 0.15s ease;
+  animation: backdropIn 0.2s ease-out;
 }
 
 @keyframes backdropIn {
@@ -16,20 +17,20 @@
 }
 
 .modal {
-  background: var(--bg);
-  border-radius: 14px;
-  padding: 28px;
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 32px;
   width: 100%;
   max-width: 440px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  animation: modalIn 0.15s ease;
+  gap: 16px;
+  animation: modalIn 0.2s ease-out;
 }
 
 @keyframes modalIn {
-  from { opacity: 0; transform: scale(0.97) translateY(4px); }
+  from { opacity: 0; transform: scale(0.96) translateY(6px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
@@ -40,7 +41,7 @@
   font-style: italic;
   border-left: 3px solid var(--accent);
   padding-left: 12px;
-  line-height: 1.5;
+  line-height: 1.6;
   word-break: break-word;
 }
 
@@ -56,15 +57,16 @@
   padding: 11px 14px;
   font-size: 16px;
   font-family: var(--sans);
-  border: 2px solid var(--border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
   background: var(--bg);
   color: var(--text-h);
-  transition: border-color 0.2s;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
 
   &:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent-border);
+    box-shadow: 0 0 0 3px var(--accent-bg);
   }
 
   &::placeholder {
@@ -82,12 +84,12 @@
 
 .modal-btn {
   padding: 10px 22px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 15px;
   font-family: var(--sans);
   font-weight: 500;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
 .modal-btn--confirm {
@@ -101,7 +103,8 @@
   }
 
   &:not(:disabled):hover {
-    opacity: 0.85;
+    opacity: 0.88;
+    transform: translateY(-1px);
   }
 }
 

@@ -1,7 +1,8 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,13 +11,12 @@
 }
 
 .project-form-modal {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px;
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 32px;
   width: 100%;
   max-width: 480px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -33,16 +33,17 @@
   padding: 12px 14px;
   font-size: 16px;
   font-family: var(--sans);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
   background: var(--bg);
   color: var(--text-h);
   box-sizing: border-box;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
 
   &:focus {
     border-color: var(--accent-border);
+    box-shadow: 0 0 0 3px var(--accent-bg);
   }
 
   &::placeholder {
@@ -56,17 +57,19 @@
   padding: 12px 14px;
   font-size: 15px;
   font-family: var(--sans);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
   background: var(--bg);
   color: var(--text-h);
   box-sizing: border-box;
   outline: none;
   resize: vertical;
-  transition: border-color 0.15s;
+  line-height: 1.6;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
 
   &:focus {
     border-color: var(--accent-border);
+    box-shadow: 0 0 0 3px var(--accent-bg);
   }
 
   &::placeholder {
@@ -89,9 +92,14 @@
   background: var(--accent);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+
+  &:not(:disabled):hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
 
   &:disabled {
     opacity: 0.4;
@@ -106,10 +114,10 @@
   font-weight: 500;
   background: transparent;
   color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.2s ease-out, border-color 0.2s ease-out;
 
   &:hover {
     color: var(--text-h);

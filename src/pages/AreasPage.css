@@ -11,14 +11,14 @@
 
 .area-card-new {
   border: 2px dashed var(--border);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 20px;
   background: transparent;
   color: var(--text);
   font-size: 15px;
   font-family: var(--sans);
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color 0.2s ease-out, color 0.2s ease-out;
   min-height: 100px;
   display: flex;
   align-items: center;
