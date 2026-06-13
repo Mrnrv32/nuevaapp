@@ -21,6 +21,7 @@
   border-radius: 12px;
   background: var(--bg);
   color: var(--text-h);
+  overflow: hidden;
   resize: none;
   transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
   display: block;

@@ -25,6 +25,7 @@ function relativeDate(isoDate: string): string {
 
 export default function DashboardPage() {
   const [projects, setProjects] = useState<ProjectWithProgress[]>([])
+  const [totalProjectCount, setTotalProjectCount] = useState(0)
   const [todayTasks, setTodayTasks] = useState<TodayTask[]>([])
   const [areas, setAreas] = useState<AreaWithLastLog[]>([])
   const [hasInboxItems, setHasInboxItems] = useState(false)
@@ -39,6 +40,7 @@ export default function DashboardPage() {
       checkInboxHasItems(),
       getAreasWithLastLog(),
     ])
+    setTotalProjectCount(projs.length)
     setProjects(projs.slice(0, 3))
     setTodayTasks(today)
     setHasInboxItems(inbox)
@@ -62,9 +64,9 @@ export default function DashboardPage() {
   return (
     <div className="dashboard-page">
       {hasInboxItems && (
-        <div className="inbox-banner">
-          Tienes items sin procesar en el Inbox
-        </div>
+        <button type="button" className="inbox-banner" onClick={() => navigate('/inbox')}>
+          Tienes items sin procesar en el Inbox →
+        </button>
       )}
 
       <TodayTasksList tasks={todayTasks} />
@@ -74,7 +76,7 @@ export default function DashboardPage() {
           <div className="dash-section-head">
             <span className="dash-section-title">Proyectos activos</span>
             <button type="button" className="dash-section-link" onClick={() => navigate('/projects')}>
-              Ver todos →
+              {totalProjectCount > 3 ? `Ver todos (${totalProjectCount}) →` : 'Ver todos →'}
             </button>
           </div>
           {projects.map(p => (
@@ -86,7 +88,10 @@ export default function DashboardPage() {
                   style={{ width: p.total_count > 0 ? `${Math.round((p.done_count / p.total_count) * 100)}%` : '0%' }}
                 />
               </div>
-              <span className="dash-proj-count">{p.done_count}/{p.total_count}</span>
+              {p.total_count > 0
+                ? <span className="dash-proj-count">{p.done_count}/{p.total_count}</span>
+                : <span className="dash-proj-add">+ Añadir tarea</span>
+              }
             </div>
           ))}
         </div>

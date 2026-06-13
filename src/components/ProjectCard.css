@@ -64,3 +64,11 @@
   color: var(--text);
   white-space: nowrap;
 }
+
+.project-progress-add {
+  font-size: 12px;
+  color: var(--accent);
+  opacity: 0.65;
+  white-space: nowrap;
+  font-family: var(--sans);
+}

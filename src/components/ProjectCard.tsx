@@ -28,9 +28,10 @@ export default function ProjectCard({ project }: Props) {
         <div className="project-progress-bar">
           <div className="project-progress-fill" style={{ width: `${pct}%` }} />
         </div>
-        <span className="project-progress-label">
-          {project.done_count}/{project.total_count}
-        </span>
+        {project.total_count > 0
+          ? <span className="project-progress-label">{project.done_count}/{project.total_count}</span>
+          : <span className="project-progress-add">+ Añadir tarea</span>
+        }
       </div>
     </article>
   )

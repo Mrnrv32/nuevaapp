@@ -55,11 +55,13 @@ export default function InboxCapture({ onCapture }: Props) {
         <textarea
           ref={textareaRef}
           value={text}
-          onChange={e => setText(e.target.value)}
+          onChange={e => {
+            setText(e.target.value)
+            e.target.style.height = 'auto'
+            e.target.style.height = `${e.target.scrollHeight}px`
+          }}
           onKeyDown={handleKeyDown}
           placeholder="¿Qué tienes en mente?"
-          rows={4}
-          disabled={saving}
         />
         {saved && <div className="capture-saved">Guardado</div>}
       </div>

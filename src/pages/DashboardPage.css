@@ -5,6 +5,8 @@
 }
 
 .inbox-banner {
+  display: block;
+  width: calc(100% - 48px);
   margin: 20px 24px 0;
   padding: 12px 18px;
   background: var(--accent-bg);
@@ -13,6 +15,12 @@
   font-size: 14px;
   color: var(--accent);
   font-weight: 500;
+  font-family: var(--sans);
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 0.2s ease-out;
+
+  &:hover { opacity: 0.8; }
 }
 
 .dash-section {
@@ -97,6 +105,14 @@
   white-space: nowrap;
   min-width: 30px;
   text-align: right;
+}
+
+.dash-proj-add {
+  font-size: 12px;
+  color: var(--accent);
+  opacity: 0.65;
+  white-space: nowrap;
+  font-family: var(--sans);
 }
 
 .dash-area-row {
