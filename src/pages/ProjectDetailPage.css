@@ -1,0 +1,115 @@
+.project-detail-page {
+  padding: 24px;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-family: var(--sans);
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-start;
+  transition: color 0.15s;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-header-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.project-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.project-description {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  align-self: center;
+
+  &.status-badge--active {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+  }
+
+  &.status-badge--on_hold {
+    background: rgba(234, 179, 8, 0.1);
+    color: #ca8a04;
+  }
+
+  &.status-badge--completed {
+    background: var(--accent-bg);
+    color: var(--accent);
+  }
+
+  &.status-badge--archived {
+    background: var(--code-bg);
+    color: var(--text);
+  }
+}
+
+.project-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-ai {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  font-weight: 500;
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+}
+
+.task-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

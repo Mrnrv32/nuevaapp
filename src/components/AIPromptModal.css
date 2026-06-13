@@ -1,0 +1,123 @@
+.ai-modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ai-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-modal-title {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-h);
+}
+
+.ai-modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text);
+  padding: 0;
+  line-height: 1;
+
+  &:hover {
+    color: var(--text-h);
+  }
+}
+
+.ai-modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ai-section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.btn-copy {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-family: var(--sans);
+  font-weight: 500;
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+}
+
+.ai-prompt-preview {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-h);
+  white-space: pre-wrap;
+  margin: 0;
+  cursor: text;
+  user-select: all;
+}
+
+.ai-result-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  box-sizing: border-box;
+  outline: none;
+  resize: vertical;
+  line-height: 1.6;
+  transition: border-color 0.15s;
+
+  &:focus {
+    border-color: var(--accent-border);
+  }
+
+  &::placeholder {
+    color: var(--text);
+    opacity: 0.5;
+  }
+}
+
+.ai-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
