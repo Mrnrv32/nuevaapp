@@ -108,6 +108,25 @@ La app es personal (un solo usuario). El módulo de Autenticación queda descart
 
 **Verificado en browser (2026-06-13):** registro de avance, actualización de estado "hoy", detalle con log cronológico, navegación completa entre las 4 secciones.
 
+### Sistema de Diseño: "Warm Minimalism" ✅ Completo (2026-06-13)
+
+Commit `af1ca00`. 16 archivos CSS refactorizados. Sin Tailwind — CSS variables nativas en `src/index.css`.
+
+**Tokens clave:**
+- `--bg: #FAFAF9` · `--bg-card: #FDFDFC` · `--accent: #0d9488` (teal-600)
+- `--text: #78716c` · `--text-h: #292524` · `--border: #E7E5E4`
+- `--shadow-sm` / `--shadow` / `--shadow-lg` (sombras difusas, sin borders duros)
+
+**Reglas para nuevos componentes:**
+- Tarjetas: `background: var(--bg-card)`, `box-shadow: var(--shadow-sm)`, hover con `translateY(-2px)` + `var(--shadow)`. Sin `border: 1px solid`.
+- Modales: `background: var(--bg-card)`, `border-radius: 20px`, `box-shadow: var(--shadow-lg)`, overlay `rgba(0,0,0,0.3)` + `backdrop-filter: blur(2px)`.
+- Inputs: `background: var(--bg)`, `border: 1.5px solid var(--border)`, focus con `box-shadow: 0 0 0 3px var(--accent-bg)`.
+- Botones primarios: `background: var(--accent)`, hover `opacity: 0.88` + `translateY(-1px)`.
+- Destructivos: `#b45309` (amber), nunca rojo puro.
+- Transiciones: `0.2s ease-out` general, `0.25s ease-out` para transforms.
+
+**Tailwind:** descartado por ahora. Reconsiderar si el próximo módulo tiene 5+ componentes nuevos.
+
 ### Próximo spec: por definir
 
 ---
