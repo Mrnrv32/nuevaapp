@@ -3,6 +3,10 @@
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
   background: var(--bg-card);
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
 }
 
 .nav-tab {

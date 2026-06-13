@@ -1,0 +1,24 @@
+.resources-page {
+  padding: 24px 16px 48px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.resources-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.resources-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 0 0 18px;
+}
+
+.resources-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
