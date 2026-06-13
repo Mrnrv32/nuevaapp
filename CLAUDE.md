@@ -61,6 +61,7 @@ Invocar con `/nombre-del-skill`. Código en `src/skills/`. Documentación en `.c
 - `inbox-spec.md` — Bandeja de Entrada v1.0 ✅
 - `dashboard-spec.md` — Dashboard / Proyectos ✅
 - `areas-nav-refactor-spec.md` — Áreas + Refactor de Navegación ✅
+- `proceso-real-spec.md` — Proceso Real (Inbox v2.0) ✅
 
 ---
 
@@ -84,6 +85,8 @@ La app es personal (un solo usuario). El módulo de Autenticación queda descart
 | Página | `src/pages/InboxPage.tsx` | ✅ |
 
 **Verificado en browser (2026-06-13):** captura, listado, proceso y eliminación funcionan sin sesión activa.
+
+**Proceso Real (v2.0) — Verificado en browser (2026-06-13):** ProcessModal refactorizado con 3 destinos reales. Flujo → Proyecto: crea tarea en proyecto seleccionado. Flujo → Área: crea log en área seleccionada. Flujo → Archivar: comportamiento anterior (texto libre). Sin cambios de schema.
 
 ### Módulo: Proyectos + Tareas ✅ Completo
 

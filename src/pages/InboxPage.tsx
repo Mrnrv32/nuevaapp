@@ -4,9 +4,11 @@ import { captureIdea } from '../skills/captureIdea'
 import { getInboxItems } from '../skills/getInboxItems'
 import { deleteItem } from '../skills/deleteItem'
 import { processItem } from '../skills/processItem'
+import { createTask } from '../skills/createTask'
+import { createAreaLog } from '../skills/createAreaLog'
 import InboxCapture from '../components/InboxCapture'
 import InboxListItem from '../components/InboxListItem'
-import ProcessModal from '../components/ProcessModal'
+import ProcessModal, { type Destination } from '../components/ProcessModal'
 import './InboxPage.css'
 
 export default function InboxPage() {
@@ -34,8 +36,22 @@ export default function InboxPage() {
     setItems(prev => prev.filter(item => item.id !== id))
   }
 
-  const handleProcess = async (destinationNote: string) => {
+  const handleProcess = async (dest: Destination) => {
     if (!processing) return
+
+    let destinationNote: string
+
+    if (dest.type === 'project') {
+      await createTask(dest.projectId, { title: dest.taskTitle, due_date: null, time_estimate: null })
+      destinationNote = `Proyecto: ${dest.projectTitle}`
+    } else if (dest.type === 'area') {
+      const today = new Date().toISOString().split('T')[0]
+      await createAreaLog(dest.areaId, { content: processing.text, logged_at: today })
+      destinationNote = `Área: ${dest.areaTitle}`
+    } else {
+      destinationNote = dest.note || 'Archivado'
+    }
+
     await processItem({ id: processing.id, destinationNote })
     setItems(prev => prev.filter(item => item.id !== processing.id))
     setProcessing(null)
