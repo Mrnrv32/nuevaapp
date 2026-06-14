@@ -1,5 +1,5 @@
 export type ResourceType = 'link' | 'book' | 'note'
-export type ResourceStatus = 'pending' | 'read'
+export type ResourceStatus = 'pending' | 'read' | 'archived'
 
 export interface Resource {
   id: string

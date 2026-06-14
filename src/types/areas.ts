@@ -1,12 +1,16 @@
+export type AreaStatus = 'active' | 'archived'
+
 export interface Area {
   id: string
   title: string
   description: string | null
   color: string
+  status: AreaStatus
   created_at: string
 }
 
 export type NewArea = Pick<Area, 'title' | 'description' | 'color'>
+export type AreaPatch = Partial<Pick<Area, 'title' | 'description' | 'color' | 'status'>>
 
 export interface AreaWithLastLog extends Area {
   last_logged_at: string | null

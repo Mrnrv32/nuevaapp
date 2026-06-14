@@ -4,6 +4,23 @@ Registro cronológico de sesiones. Entrada más reciente primero.
 
 ---
 
+## 2026-06-14 — Simulación TDAH + 4 UX fixes + eliminación de emojis
+
+**Hecho:**
+- Simulación roleplay de 3 días de uso real (día de captura, día de procesado, día de baja energía) para identificar fricciones cognitivas reales. Verificación en browser con preview tools.
+- **Fix 1 — Inbox vacío con CTA:** `InboxPage.tsx/css` — estado vacío reemplazado por bloque positivo: título "Inbox en cero", subtítulo y botón teal "Ir al Dashboard →" con `useNavigate`.
+- **Fix 2 — "Tareas de hoy" siempre visible:** `TodayTasksList.tsx/css` — eliminado el `return null`; muestra empty state compacto horizontal. `DashboardPage.tsx` pasa prop `firstProject?` con el primer proyecto para un botón de acceso rápido.
+- **Fix 3 — Shortcuts de fecha en TaskForm:** `TaskForm.tsx/css` — chips `[Hoy]` / `[Mañana]` con toggle reemplazan el `<input type="date">` siempre visible. Helper `toLocalDate(offset)` para evitar desfase UTC. Botón `✕` solo cuando hay fecha activa.
+- **Fix 4 — Crear proyecto inline en ProcessModal:** `ProcessModal.tsx/css` — botón dashed "+ Nuevo proyecto" expande mini-form teal animado. `e.stopPropagation()` en keyDown para no interferir con el keyDown del modal padre. Auto-selecciona el proyecto recién creado. Primer commit: `a9e0bbc`.
+- **Eliminación de emojis:** `ProjectDetailPage.tsx` (menú ⚙: Editar, Archivar, Eliminar, "Generar con IA"), `AreaDetailPage.tsx` (menú ⚙: Editar, Eliminar), `ResourceCapture.tsx` (campo `icon` removido de `TYPE_OPTIONS` + JSX). Commit `4516d6b`.
+
+**Próximos pasos:**
+- Próximo módulo sin definir — candidatos: Archives ("A" de P.A.R.A.), dark mode, Resources v2 (vista tabla, detalle `/resources/:id`), mejoras móvil responsive.
+- Resources: sin edición inline de recursos (patrón ya establecido), sin upload de PDFs, sin import masivo de bookmarks.
+- Explorar: detección automática de proyectos/áreas en InboxCapture para pre-seleccionar destino en ProcessModal.
+
+---
+
 ## 2026-06-13 — Edición inline, borrado protegido y menú ⚙
 
 **Hecho:**

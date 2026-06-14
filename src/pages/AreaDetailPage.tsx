@@ -58,6 +58,12 @@ export default function AreaDetailPage() {
     setArea(updated)
   }
 
+  const handleArchive = async () => {
+    if (!id) return
+    await updateArea(id, { status: 'archived' })
+    navigate('/areas')
+  }
+
   const handleDelete = async () => {
     if (!confirmDelete) {
       setConfirmDelete(true)
@@ -100,6 +106,13 @@ export default function AreaDetailPage() {
                 onClick={() => { setShowMenu(false); setShowEditForm(true) }}
               >
                 Editar
+              </button>
+              <button
+                type="button"
+                className="project-menu-item"
+                onClick={handleArchive}
+              >
+                Archivar
               </button>
               <button
                 type="button"

@@ -1,7 +1,7 @@
 import { supabase } from '../lib/supabase'
-import type { Area } from '../types/areas'
+import type { Area, AreaPatch } from '../types/areas'
 
-export async function updateArea(id: string, patch: Partial<Pick<Area, 'title' | 'description' | 'color'>>): Promise<Area> {
+export async function updateArea(id: string, patch: AreaPatch): Promise<Area> {
   const { data, error } = await supabase
     .from('areas')
     .update(patch)

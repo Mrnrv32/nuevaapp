@@ -5,6 +5,7 @@ export async function getAreasWithLastLog(): Promise<AreaWithLastLog[]> {
   const { data, error } = await supabase
     .from('areas')
     .select('*, area_logs(logged_at)')
+    .eq('status', 'active')
     .order('created_at', { ascending: true })
 
   if (error) throw error

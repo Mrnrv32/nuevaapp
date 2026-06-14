@@ -7,6 +7,7 @@ import ProjectDetailPage from './pages/ProjectDetailPage'
 import AreasPage from './pages/AreasPage'
 import AreaDetailPage from './pages/AreaDetailPage'
 import ResourcesPage from './pages/ResourcesPage'
+import ArchivesPage from './pages/ArchivesPage'
 import './App.css'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/areas" element={<AreasPage />} />
         <Route path="/areas/:id" element={<AreaDetailPage />} />
         <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/archives" element={<ArchivesPage />} />
       </Routes>
     </BrowserRouter>
   )

@@ -9,6 +9,7 @@ interface Props {
   allTags: string[]
   onFiltersChange: (f: Filters) => void
   onToggleRead: (id: string) => void
+  onArchive: (id: string) => void
   onDelete: (id: string) => void
 }
 
@@ -18,6 +19,7 @@ export default function ResourceList({
   allTags,
   onFiltersChange,
   onToggleRead,
+  onArchive,
   onDelete,
 }: Props) {
   return (
@@ -37,6 +39,7 @@ export default function ResourceList({
               key={r.id}
               resource={r}
               onToggleRead={onToggleRead}
+              onArchive={onArchive}
               onDelete={onDelete}
             />
           ))}

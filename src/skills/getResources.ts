@@ -4,7 +4,11 @@ import type { Resource, ResourceFilters } from '../types/resources'
 export async function getResources(filters?: ResourceFilters): Promise<Resource[]> {
   let query = supabase.from('resources').select('*')
 
-  if (filters?.status) query = query.eq('status', filters.status)
+  if (filters?.status) {
+    query = query.eq('status', filters.status)
+  } else {
+    query = query.neq('status', 'archived')
+  }
   if (filters?.type) query = query.eq('type', filters.type)
   if (filters?.tag) query = query.contains('tags', [filters.tag])
   if (filters?.search) {

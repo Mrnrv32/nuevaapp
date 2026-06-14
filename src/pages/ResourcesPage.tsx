@@ -36,6 +36,11 @@ export default function ResourcesPage() {
     setResources(prev => prev.map(r => r.id === id ? updated : r))
   }
 
+  async function handleArchive(id: string) {
+    await updateResource(id, { status: 'archived' })
+    setResources(prev => prev.filter(r => r.id !== id))
+  }
+
   async function handleDelete(id: string) {
     await deleteResource(id)
     setResources(prev => prev.filter(r => r.id !== id))
@@ -61,6 +66,7 @@ export default function ResourcesPage() {
             allTags={allTags}
             onFiltersChange={setFilters}
             onToggleRead={handleToggleRead}
+            onArchive={handleArchive}
             onDelete={handleDelete}
           />
         </div>

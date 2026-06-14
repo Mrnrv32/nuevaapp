@@ -12,6 +12,7 @@ export default function NavBar() {
       <NavLink to="/projects" className={cls}>Proyectos</NavLink>
       <NavLink to="/areas" className={cls}>Áreas</NavLink>
       <NavLink to="/resources" className={cls}>Resources</NavLink>
+      <NavLink to="/archives" className={cls}>Archivos</NavLink>
     </nav>
   )
 }

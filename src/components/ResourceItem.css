@@ -119,7 +119,7 @@
 }
 
 .resource-item-main {
-  padding-right: 60px;
+  padding-right: 92px;
 }
 
 .resource-item-actions {
@@ -155,6 +155,12 @@
     background: var(--accent-bg);
     border-color: var(--accent-border);
     color: var(--accent);
+  }
+
+  &.resource-action-btn--archive:hover {
+    border-color: rgba(13, 148, 136, 0.3);
+    color: var(--accent);
+    background: var(--accent-bg);
   }
 
   &.resource-action-btn--delete:hover {

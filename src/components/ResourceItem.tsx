@@ -35,10 +35,11 @@ function domain(url: string): string {
 interface Props {
   resource: Resource
   onToggleRead: (id: string) => void
+  onArchive: (id: string) => void
   onDelete: (id: string) => void
 }
 
-export default function ResourceItem({ resource, onToggleRead, onDelete }: Props) {
+export default function ResourceItem({ resource, onToggleRead, onArchive, onDelete }: Props) {
   const [expanded, setExpanded] = useState(false)
   const isRead = resource.status === 'read'
 
@@ -92,6 +93,14 @@ export default function ResourceItem({ resource, onToggleRead, onDelete }: Props
           onClick={() => onToggleRead(resource.id)}
         >
           ✓
+        </button>
+        <button
+          type="button"
+          className="resource-action-btn resource-action-btn--archive"
+          title="Archivar"
+          onClick={() => onArchive(resource.id)}
+        >
+          ↓
         </button>
         <button
           type="button"
