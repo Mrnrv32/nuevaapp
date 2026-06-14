@@ -4,6 +4,27 @@ Registro cronológico de sesiones. Entrada más reciente primero.
 
 ---
 
+## 2026-06-13 — Edición inline, borrado protegido y menú ⚙
+
+**Hecho:**
+- Nuevo skill `src/skills/updateItem.ts`: PATCH en `inbox_items` por ID, devuelve el ítem actualizado.
+- Nuevo skill `src/skills/deleteProject.ts`: DELETE en `projects` por ID.
+- `InboxListItem.tsx`: edición inline (textarea en lugar del texto, Enter guarda / Escape+onBlur cancela), borrado en 2 pasos (`confirming` boolean, label ámbar "¿Eliminar?", segundo clic ejecuta), botones `opacity:0` en reposo / `1` en hover o seleccionado.
+- `InboxListItem.tsx`: patrón clic-to-reveal — estado `selected`; clic en `.inbox-item-body` hace toggle; `<li tabIndex={0}>` con `onBlur` desactiva (usando `e.currentTarget.contains(e.relatedTarget)`); botones usan `stopPropagation`.
+- `TaskItem.tsx`: misma edición inline (input de una línea) y borrado en 2 pasos que InboxListItem.
+- `ProjectForm.tsx`: prop `initial?: Project` para modo edición — pre-rellena title/description, cambia heading y label del botón. Sin cambios de firma en `onSave`.
+- `ProjectDetailPage.tsx`: menú ⚙ con 3 opciones — Editar (abre `ProjectForm` con `initial`), Archivar (`updateProject` → `status: 'archived'`), Eliminar (2 pasos → `deleteProject` → navega a `/projects`). Cierre al clic exterior con `useRef + mousedown`.
+- `AreaDetailPage.tsx`: menú ⚙ con 2 opciones — Editar (abre `AreaForm` con `initial`), Eliminar (2 pasos → `deleteArea` → navega a `/areas`).
+- CSS: clases del dropdown (`.project-gear-wrap`, `.project-gear-btn`, `.project-gear-menu`, `.project-menu-item`, `--danger`, `--confirm`) en ambos archivos de página.
+- Commits `d89f657` y `059927c` pusheados a `master`.
+- Memoria del proyecto actualizada: tabla de 4 patrones UI establecidos, skills nuevos, AreaForm/ProjectForm modo edición.
+
+**Próximos pasos:**
+- Próximo módulo sin definir — candidatos: Archives ("A" de P.A.R.A.), dark mode, Resources v2 (vista tabla, detalle `/resources/:id`), mejoras de responsivo móvil.
+- Resources v1 sin: edición inline de recursos (patrón ya establecido, fácil de aplicar), upload de PDFs, import masivo de bookmarks.
+
+---
+
 ## 2026-06-13 — Módulo Resources v1.0
 
 **Hecho:**
