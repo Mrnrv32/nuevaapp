@@ -5,10 +5,10 @@ import type { Resource, ResourceType } from '../types/resources'
 import TagInput from './TagInput'
 import './ResourceCapture.css'
 
-const TYPE_OPTIONS: { value: ResourceType; icon: string; label: string }[] = [
-  { value: 'link', icon: '🔗', label: 'URL' },
-  { value: 'book', icon: '📖', label: 'Libro' },
-  { value: 'note', icon: '📝', label: 'Nota' },
+const TYPE_OPTIONS: { value: ResourceType; label: string }[] = [
+  { value: 'link', label: 'URL' },
+  { value: 'book', label: 'Libro' },
+  { value: 'note', label: 'Nota' },
 ]
 
 interface Props {
@@ -96,7 +96,7 @@ export default function ResourceCapture({ onCapture }: Props) {
             className={`resource-type-chip${type === opt.value ? ' resource-type-chip--active' : ''}`}
             onClick={() => handleTypeChange(opt.value)}
           >
-            {opt.icon} {opt.label}
+            {opt.label}
           </button>
         ))}
       </div>

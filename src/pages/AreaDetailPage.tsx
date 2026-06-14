@@ -99,14 +99,14 @@ export default function AreaDetailPage() {
                 className="project-menu-item"
                 onClick={() => { setShowMenu(false); setShowEditForm(true) }}
               >
-                ✏ Editar
+                Editar
               </button>
               <button
                 type="button"
                 className={`project-menu-item project-menu-item--danger${confirmDelete ? ' project-menu-item--confirm' : ''}`}
                 onClick={handleDelete}
               >
-                {confirmDelete ? '¿Eliminar área?' : '🗑 Eliminar'}
+                {confirmDelete ? '¿Eliminar área?' : 'Eliminar'}
               </button>
             </div>
           )}

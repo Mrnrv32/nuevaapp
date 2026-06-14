@@ -145,21 +145,21 @@ export default function ProjectDetailPage() {
                   className="project-menu-item"
                   onClick={() => { setShowMenu(false); setShowEditForm(true) }}
                 >
-                  ✏ Editar
+                  Editar
                 </button>
                 <button
                   type="button"
                   className="project-menu-item"
                   onClick={handleArchive}
                 >
-                  📦 Archivar
+                  Archivar
                 </button>
                 <button
                   type="button"
                   className={`project-menu-item project-menu-item--danger${confirmDelete ? ' project-menu-item--confirm' : ''}`}
                   onClick={handleDelete}
                 >
-                  {confirmDelete ? '¿Eliminar proyecto?' : '🗑 Eliminar'}
+                  {confirmDelete ? '¿Eliminar proyecto?' : 'Eliminar'}
                 </button>
               </div>
             )}
@@ -172,7 +172,7 @@ export default function ProjectDetailPage() {
 
       <div className="project-actions">
         <button type="button" className="btn-ai" onClick={() => setShowAI(true)}>
-          ✦ Generar con IA
+          Generar con IA
         </button>
       </div>
 
