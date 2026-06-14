@@ -60,3 +60,35 @@
   padding: 2px 6px;
   border-radius: 4px;
 }
+
+.today-tasks-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  flex-wrap: wrap;
+}
+
+.today-tasks-empty-msg {
+  font-size: 14px;
+  color: var(--text);
+  margin: 0;
+  opacity: 0.75;
+}
+
+.today-tasks-empty-btn {
+  font-size: 13px;
+  font-family: var(--sans);
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-out;
+}
+
+.today-tasks-empty-btn:hover {
+  opacity: 0.8;
+}

@@ -4,6 +4,7 @@ import type { Project } from '../types/projects'
 import type { Area } from '../types/areas'
 import { getProjects } from '../skills/getProjects'
 import { getAreas } from '../skills/getAreas'
+import { createProject } from '../skills/createProject'
 import './ProcessModal.css'
 
 type Step = 'choose' | 'project' | 'area' | 'archive'
@@ -28,6 +29,9 @@ export default function ProcessModal({ item, onConfirm, onClose }: Props) {
   const [areaId, setAreaId] = useState('')
   const [archiveNote, setArchiveNote] = useState('')
   const [saving, setSaving] = useState(false)
+  const [showNewProject, setShowNewProject] = useState(false)
+  const [newProjectTitle, setNewProjectTitle] = useState('')
+  const [creatingProject, setCreatingProject] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -44,6 +48,20 @@ export default function ProcessModal({ item, onConfirm, onClose }: Props) {
   }, [step])
 
   const back = () => setStep('choose')
+
+  const handleCreateProject = async () => {
+    if (!newProjectTitle.trim() || creatingProject) return
+    setCreatingProject(true)
+    try {
+      const created = await createProject({ title: newProjectTitle.trim(), description: null, para_type: 'project' })
+      setProjects(prev => [...prev, created])
+      setProjectId(created.id)
+      setNewProjectTitle('')
+      setShowNewProject(false)
+    } finally {
+      setCreatingProject(false)
+    }
+  }
 
   const handleConfirm = async () => {
     if (saving) return
@@ -127,9 +145,8 @@ export default function ProcessModal({ item, onConfirm, onClose }: Props) {
         {step === 'project' && (
           <>
             <button type="button" className="modal-back" onClick={back}>← Atrás</button>
-            {projects.length === 0 ? (
-              <p className="modal-empty">No hay proyectos activos.</p>
-            ) : (
+
+            {projects.length > 0 && (
               <>
                 <label className="modal-label" htmlFor="proj-select">Proyecto</label>
                 <select
@@ -137,29 +154,81 @@ export default function ProcessModal({ item, onConfirm, onClose }: Props) {
                   className="modal-select"
                   value={projectId}
                   onChange={e => setProjectId(e.target.value)}
-                  disabled={saving}
+                  disabled={saving || creatingProject}
                 >
                   {projects.map(p => <option key={p.id} value={p.id}>{p.title}</option>)}
                 </select>
-                <label className="modal-label" htmlFor="task-title">Título de la tarea</label>
-                <input
-                  ref={inputRef}
-                  id="task-title"
-                  type="text"
-                  value={taskTitle}
-                  onChange={e => setTaskTitle(e.target.value)}
-                  disabled={saving}
-                />
               </>
             )}
+
+            {projects.length === 0 && !showNewProject && (
+              <p className="modal-empty">No hay proyectos activos.</p>
+            )}
+
+            {showNewProject ? (
+              <div className="modal-new-project">
+                <input
+                  autoFocus
+                  type="text"
+                  className="modal-new-project-input"
+                  placeholder="Nombre del proyecto…"
+                  value={newProjectTitle}
+                  onChange={e => setNewProjectTitle(e.target.value)}
+                  disabled={creatingProject}
+                  onKeyDown={e => {
+                    e.stopPropagation()
+                    if (e.key === 'Enter') handleCreateProject()
+                    if (e.key === 'Escape') { setShowNewProject(false); setNewProjectTitle('') }
+                  }}
+                />
+                <div className="modal-new-project-actions">
+                  <button
+                    type="button"
+                    className="modal-btn modal-btn--cancel modal-btn--sm"
+                    onClick={() => { setShowNewProject(false); setNewProjectTitle('') }}
+                    disabled={creatingProject}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    className="modal-btn modal-btn--confirm modal-btn--sm"
+                    onClick={handleCreateProject}
+                    disabled={!newProjectTitle.trim() || creatingProject}
+                  >
+                    {creatingProject ? 'Creando…' : 'Crear'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="modal-new-project-trigger"
+                onClick={() => setShowNewProject(true)}
+                disabled={saving}
+              >
+                + Nuevo proyecto
+              </button>
+            )}
+
+            <label className="modal-label" htmlFor="task-title">Título de la tarea</label>
+            <input
+              ref={inputRef}
+              id="task-title"
+              type="text"
+              value={taskTitle}
+              onChange={e => setTaskTitle(e.target.value)}
+              disabled={saving || creatingProject}
+            />
+
             <div className="modal-actions">
               <button type="button" className="modal-btn modal-btn--cancel" onClick={onClose}>Cancelar</button>
-              {projects.length > 0 && (
+              {(projects.length > 0 || projectId) && (
                 <button
                   type="button"
                   className="modal-btn modal-btn--confirm"
                   onClick={handleConfirm}
-                  disabled={!canConfirm || saving}
+                  disabled={!canConfirm || saving || creatingProject}
                 >
                   Crear tarea
                 </button>

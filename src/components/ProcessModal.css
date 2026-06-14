@@ -221,3 +221,79 @@
   margin: 0;
   padding: 12px 0;
 }
+
+/* Inline new project creator */
+
+.modal-new-project-trigger {
+  align-self: flex-start;
+  background: none;
+  border: 1.5px dashed var(--border);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-family: var(--sans);
+  color: var(--accent);
+  cursor: pointer;
+  transition: border-color 0.2s ease-out, background 0.2s ease-out;
+}
+
+.modal-new-project-trigger:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.modal-new-project-trigger:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.modal-new-project {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
+  animation: expandIn 0.15s ease-out;
+}
+
+@keyframes expandIn {
+  from { opacity: 0; transform: scaleY(0.9); transform-origin: top; }
+  to   { opacity: 1; transform: scaleY(1); }
+}
+
+.modal-new-project-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  font-size: 15px;
+  font-family: var(--sans);
+  border: 1.5px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-h);
+  outline: none;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.modal-new-project-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.modal-new-project-input::placeholder {
+  color: var(--text);
+  opacity: 0.5;
+}
+
+.modal-new-project-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.modal-btn--sm {
+  padding: 6px 14px;
+  font-size: 13px;
+}

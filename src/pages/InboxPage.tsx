@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { InboxItem, NewInboxItem } from '../types/inbox'
 import { captureIdea } from '../skills/captureIdea'
 import { getInboxItems } from '../skills/getInboxItems'
@@ -13,6 +14,7 @@ import ProcessModal, { type Destination } from '../components/ProcessModal'
 import './InboxPage.css'
 
 export default function InboxPage() {
+  const navigate = useNavigate()
   const [items, setItems] = useState<InboxItem[]>([])
   const [loading, setLoading] = useState(true)
   const [processing, setProcessing] = useState<InboxItem | null>(null)
@@ -70,7 +72,17 @@ export default function InboxPage() {
       {loading ? (
         <p className="inbox-state">Cargando...</p>
       ) : items.length === 0 ? (
-        <p className="inbox-state inbox-state--empty">El inbox está vacío</p>
+        <div className="inbox-empty">
+          <p className="inbox-empty-title">Inbox en cero</p>
+          <p className="inbox-empty-subtitle">Capturaste todo. Ahora revisa qué sigue.</p>
+          <button
+            type="button"
+            className="inbox-empty-cta"
+            onClick={() => navigate('/dashboard')}
+          >
+            Ir al Dashboard →
+          </button>
+        </div>
       ) : (
         <ul className="inbox-list">
           {items.map(item => (

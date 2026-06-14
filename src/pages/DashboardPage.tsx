@@ -69,7 +69,10 @@ export default function DashboardPage() {
         </button>
       )}
 
-      <TodayTasksList tasks={todayTasks} />
+      <TodayTasksList
+        tasks={todayTasks}
+        firstProject={projects[0] ? { id: projects[0].id, title: projects[0].title } : undefined}
+      />
 
       {projects.length > 0 && (
         <div className="dash-section">

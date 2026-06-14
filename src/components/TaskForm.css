@@ -91,19 +91,50 @@
   }
 }
 
-.task-form-date {
-  padding: 4px 8px;
-  font-size: 13px;
+.task-form-date-shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.task-date-btn {
+  padding: 4px 10px;
+  font-size: 12px;
   font-family: var(--sans);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 20px;
   background: var(--bg);
   color: var(--text);
-  outline: none;
   cursor: pointer;
+  transition: all 0.2s ease-out;
+  white-space: nowrap;
 
-  &:focus {
+  &:hover {
     border-color: var(--accent-border);
+    color: var(--accent);
+  }
+
+  &.task-date-btn--active {
+    background: var(--accent-bg);
+    border-color: var(--accent-border);
+    color: var(--accent);
+  }
+}
+
+.task-date-clear {
+  padding: 4px 7px;
+  font-size: 11px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  line-height: 1;
+
+  &:hover {
+    border-color: #f87171;
+    color: #f87171;
   }
 }
 
