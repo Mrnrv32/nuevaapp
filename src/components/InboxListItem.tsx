@@ -19,6 +19,7 @@ function formatDate(iso: string): string {
 }
 
 export default function InboxListItem({ item, onDelete, onProcess, onEdit }: Props) {
+  const [selected, setSelected] = useState(false)
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(item.text)
   const [confirming, setConfirming] = useState(false)
@@ -61,8 +62,12 @@ export default function InboxListItem({ item, onDelete, onProcess, onEdit }: Pro
   }
 
   return (
-    <li className="inbox-item">
-      <div className="inbox-item-body">
+    <li
+      className={`inbox-item${selected ? ' inbox-item--selected' : ''}`}
+      tabIndex={0}
+      onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) { setSelected(false); setConfirming(false) } }}
+    >
+      <div className="inbox-item-body" onClick={() => !editing && setSelected(s => !s)}>
         {editing ? (
           <textarea
             ref={textareaRef}
@@ -83,7 +88,7 @@ export default function InboxListItem({ item, onDelete, onProcess, onEdit }: Pro
           ))}
         </div>
       </div>
-      <div className="inbox-item-actions">
+      <div className="inbox-item-actions" onClick={e => e.stopPropagation()}>
         <button
           type="button"
           className="action-btn action-btn--edit"

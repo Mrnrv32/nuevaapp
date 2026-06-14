@@ -1,16 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
-import type { NewProject, ParaType } from '../types/projects'
+import type { Project, NewProject, ParaType } from '../types/projects'
 import './ProjectForm.css'
 
 interface Props {
   defaultParaType?: ParaType
+  initial?: Project
   onSave: (project: NewProject) => Promise<void>
   onClose: () => void
 }
 
-export default function ProjectForm({ defaultParaType = 'project', onSave, onClose }: Props) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+export default function ProjectForm({ defaultParaType = 'project', initial, onSave, onClose }: Props) {
+  const [title, setTitle] = useState(initial?.title ?? '')
+  const [description, setDescription] = useState(initial?.description ?? '')
   const [saving, setSaving] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -23,17 +24,19 @@ export default function ProjectForm({ defaultParaType = 'project', onSave, onClo
     if (!title.trim()) return
     setSaving(true)
     try {
-      await onSave({ title: title.trim(), description: description.trim() || null, para_type: defaultParaType })
+      await onSave({ title: title.trim(), description: description.trim() || null, para_type: initial?.para_type ?? defaultParaType })
       onClose()
     } finally {
       setSaving(false)
     }
   }
 
+  const isEdit = !!initial
+
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
       <div className="project-form-modal" onClick={e => e.stopPropagation()}>
-        <h2 className="project-form-heading">Nuevo proyecto</h2>
+        <h2 className="project-form-heading">{isEdit ? 'Editar proyecto' : 'Nuevo proyecto'}</h2>
         <form onSubmit={handleSubmit}>
           <input
             ref={inputRef}
@@ -56,7 +59,7 @@ export default function ProjectForm({ defaultParaType = 'project', onSave, onClo
               Cancelar
             </button>
             <button type="submit" className="btn-primary" disabled={!title.trim() || saving}>
-              {saving ? 'Guardando…' : 'Crear proyecto'}
+              {saving ? 'Guardando…' : isEdit ? 'Guardar cambios' : 'Crear proyecto'}
             </button>
           </div>
         </form>

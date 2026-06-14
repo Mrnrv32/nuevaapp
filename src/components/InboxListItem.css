@@ -22,9 +22,24 @@
   }
 }
 
+.inbox-item--selected {
+  background: rgba(0, 0, 0, 0.02);
+
+  & .action-btn {
+    opacity: 1;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .inbox-item--selected {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
 .inbox-item-body {
   flex: 1;
   min-width: 0;
+  cursor: pointer;
 }
 
 .inbox-item-text {

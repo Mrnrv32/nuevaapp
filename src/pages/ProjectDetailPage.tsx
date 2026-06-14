@@ -1,15 +1,18 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import type { Project } from '../types/projects'
+import type { Project, NewProject } from '../types/projects'
 import type { Task, TaskStatus, NewTask } from '../types/tasks'
 import { getTasks } from '../skills/getTasks'
 import { createTask } from '../skills/createTask'
 import { updateTask } from '../skills/updateTask'
 import { deleteTask } from '../skills/deleteTask'
+import { updateProject } from '../skills/updateProject'
+import { deleteProject } from '../skills/deleteProject'
 import { importTasksFromText } from '../skills/importTasksFromText'
 import { getProjects } from '../skills/getProjects'
 import TaskItem from '../components/TaskItem'
 import TaskForm from '../components/TaskForm'
+import ProjectForm from '../components/ProjectForm'
 import AIPromptModal from '../components/AIPromptModal'
 import './ProjectDetailPage.css'
 
@@ -26,7 +29,11 @@ export default function ProjectDetailPage() {
   const [project, setProject] = useState<Project | null>(null)
   const [tasks, setTasks] = useState<Task[]>([])
   const [showAI, setShowAI] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
+  const [showEditForm, setShowEditForm] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const [loading, setLoading] = useState(true)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   const load = useCallback(async () => {
     if (!id) return
@@ -42,6 +49,18 @@ export default function ProjectDetailPage() {
   }, [id, navigate])
 
   useEffect(() => { load() }, [load])
+
+  useEffect(() => {
+    if (!showMenu) return
+    const close = (e: MouseEvent) => {
+      if (!menuRef.current?.contains(e.target as Node)) {
+        setShowMenu(false)
+        setConfirmDelete(false)
+      }
+    }
+    document.addEventListener('mousedown', close)
+    return () => document.removeEventListener('mousedown', close)
+  }, [showMenu])
 
   const handleStatusChange = async (taskId: string, next: TaskStatus) => {
     const updated = await updateTask(taskId, { status: next })
@@ -71,6 +90,28 @@ export default function ProjectDetailPage() {
     setTasks(prev => [...prev, ...imported])
   }
 
+  const handleEditProject = async (patch: NewProject) => {
+    if (!id) return
+    const updated = await updateProject(id, { title: patch.title, description: patch.description })
+    setProject(updated)
+  }
+
+  const handleArchive = async () => {
+    if (!id) return
+    await updateProject(id, { status: 'archived' })
+    navigate('/projects')
+  }
+
+  const handleDelete = async () => {
+    if (!confirmDelete) {
+      setConfirmDelete(true)
+      return
+    }
+    if (!id) return
+    await deleteProject(id)
+    navigate('/projects')
+  }
+
   if (loading || !project) return null
 
   const pending = tasks.filter(t => t.status !== 'done')
@@ -88,6 +129,41 @@ export default function ProjectDetailPage() {
           <span className={`status-badge status-badge--${project.status}`}>
             {STATUS_LABEL[project.status]}
           </span>
+          <div className="project-gear-wrap" ref={menuRef}>
+            <button
+              type="button"
+              className="project-gear-btn"
+              title="Opciones del proyecto"
+              onClick={() => { setShowMenu(s => !s); setConfirmDelete(false) }}
+            >
+              ⚙
+            </button>
+            {showMenu && (
+              <div className="project-gear-menu">
+                <button
+                  type="button"
+                  className="project-menu-item"
+                  onClick={() => { setShowMenu(false); setShowEditForm(true) }}
+                >
+                  ✏ Editar
+                </button>
+                <button
+                  type="button"
+                  className="project-menu-item"
+                  onClick={handleArchive}
+                >
+                  📦 Archivar
+                </button>
+                <button
+                  type="button"
+                  className={`project-menu-item project-menu-item--danger${confirmDelete ? ' project-menu-item--confirm' : ''}`}
+                  onClick={handleDelete}
+                >
+                  {confirmDelete ? '¿Eliminar proyecto?' : '🗑 Eliminar'}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         {project.description && (
           <p className="project-description">{project.description}</p>
@@ -130,6 +206,14 @@ export default function ProjectDetailPage() {
           project={project}
           onImport={handleImport}
           onClose={() => setShowAI(false)}
+        />
+      )}
+
+      {showEditForm && (
+        <ProjectForm
+          initial={project}
+          onSave={handleEditProject}
+          onClose={() => setShowEditForm(false)}
         />
       )}
     </div>
